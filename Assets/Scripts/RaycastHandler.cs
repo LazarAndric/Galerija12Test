@@ -6,9 +6,8 @@ using UnityEngine.Events;
 
 public class RaycastHandler : MonoBehaviour
 {
-    [SerializeField]
-    private Vector3 offset = Vector3.up;
     private Transform _clickedObjectTransform;
+    private Vector3 offset;
 
     public UnityEvent<Vector3> SavePosition;
     public UnityEvent<SceneObject> OnHitObj;
@@ -39,6 +38,7 @@ public class RaycastHandler : MonoBehaviour
         if(raycastHit.transform!=null)
         {
             _clickedObjectTransform = raycastHit.transform;
+            offset = Vector3.up * (_clickedObjectTransform.GetComponent<Collider>().bounds.size.y / 2);
             OnHitObj.Invoke(raycastHit.transform.gameObject.GetComponent<SceneObject>());
         }
     }
